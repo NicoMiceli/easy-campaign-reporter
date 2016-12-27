@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<!--	<meta charset="UTF-8">
+	<title>Document</title>
+	 <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_orange-indigo.min.css" /> 
+	 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>-->
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script>
+		(function(w, d, s, g, js, fs) {
+			g = w.gapi || (w.gapi = {});
+			g.analytics = {
+				q: [],
+				ready: function(f) {
+					this.q.push(f);
+				}
+			};
+			js = d.createElement(s);
+			fs = d.getElementsByTagName(s)[0];
+			js.src = 'https://apis.google.com/js/platform.js';
+			fs.parentNode.insertBefore(js, fs);
+			js.onload = function() {
+				g.load('analytics');
+			};
+		}(window, document, 'script'));
+	</script>
+</head>
+
+<body>
+	<script src="ga-code.js"></script>
+
+	<br>
+	<br>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+				<a class="navbar-brand" href="#">Campaign Name</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="http://www.nicomiceli.com">blog</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="starter-template">
+			<h1>Pull Campaign Data</h1>
+			<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+		</div>
+		<br>
+		<div id="embed-api-auth-container"></div>
+		<div id="view-selector-container"></div>
+		<br>
+
+
+		<div>
+			<br>
+			<div id="error-msg"></div>
+			<div class="row">
+				<div class="col-lg-4">
+					<label for="date-range"></label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3">Start Date</span>
+						<input type="text" class="form-control" id="start" aria-describedby="basic-addon3" placeholder="YYYY-MM-DD">
+					</div>
+				</div>
+				<!--end col lg 4 -->
+				<div class="col-lg-4">
+
+					<label for="date-range"></label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3">End Date</span>
+						<input type="text" class="form-control" id="end" aria-describedby="basic-addon3" placeholder="YYYY-MM-DD">
+					</div>
+				</div>
+				<!--end col lg 4 -->
+			</div>
+			<!--end row-->
+			<div class="row" id="dim-met">
+				<div class="col-lg-4">
+					<label for="metrics"></label>	
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3">Metric</span>
+						<input type="text" class="form-control" id="metric" aria-describedby="basic-addon3" placeholder="ga:session OR ga:goal#Completions">
+					</div>
+				</div>
+				<!--end col lg 4 -->
+				<div class="col-lg-4">
+					<label for="dim"></label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon3">Dimension</span>
+						<input type="text" class="form-control" id="dim" aria-describedby="basic-addon3" placeholder="ga:date OR ga:week OR ga:month">
+					</div>
+				</div>
+				</div>
+				<!--end col lg 4 -->
+			</div>
+			<!-- end row -->
+			<br>
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="input-group input-group-lg">
+						<span class="input-group-btn">
+		<button class="btn btn-default" type="button" id="get-data">Pull Data!</button>
+		</span>
+						<input type="text" class="form-control" id="campaign" placeholder="Enter Campaign Name Here">
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+
+			</div>
+
+		</div>
+		<!-- /.container -->
+		<br>
+
+		<div id="chart-container"></div>
+	</div>
+	<!-- end container -->
+
+</body>
+
+</html>
