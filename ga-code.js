@@ -8,7 +8,7 @@ gapi.analytics.ready(function() {
 
 	gapi.analytics.auth.authorize({
 		container: 'embed-api-auth-container',
-		clientid: '877106660496-bvm53u3hi8jkb7nfmiait66dfgsmioku.apps.googleusercontent.com'
+		clientid: '----->API KEY HERE <------'
 	});
 
 	var tableHeaders = ["time", "total"]
