@@ -8,10 +8,9 @@ gapi.analytics.ready(function() {
 
 	gapi.analytics.auth.authorize({
 		container: 'embed-api-auth-container',
-		clientid: '----->API KEY HERE <------'
+		//ADD API KEY HERE:
+		clientid: '877106660496-bvm53u3hi8jkb7nfmiait66dfgsmioku.apps.googleusercontent.com'
 	});
-
-	var tableHeaders = ["time", "total"]
 
 	var viewSelector = new gapi.analytics.ViewSelector({
 		container: 'view-selector-container'
@@ -24,18 +23,6 @@ gapi.analytics.ready(function() {
 		var value = $("#" + id).val();
 		return value
 	}
-
-	// function grabDates(start,end) {
-	// 	var startInputValue = $("#"+start).val();
-	// 	var endInputValue = $("#"+end).val();
-	// 	if (startInputValue.length<1 && endInputValue.length<1){
-	// 		startDate = "30daysAgo";
-	// 		endDate = "yesterday";
-	// 	} else(
-	// 		startDate = startInputValue
-	// 		console.log(endInputValue)
-	// 	)
-	// }
 
 	/**
 	 * Create a new DataChart instance with the given query parameters
