@@ -38,12 +38,46 @@
             };
         }(window, document, 'script'));
     </script>
+
+    <style type="text/css">
+/*         .dcs-a-dcs-o.dcs-a-dcs-zb{
+    position: 20px;
+    z-index: 20;
+} */
+        .dcs-a-dcs-fb.dcs-a-dcs-fb-dcs-qd {
+            position: 20px;
+            z-index: 10;
+        }
+
+        /*.dcs-a-dcs-fb.dcs-a-dcs-fb-dcs-qd {
+
+            position: 20px;
+            z-index: 10;
+        }*/
+        #view-selector-container {
+            position: 20px;
+/*             z-index: 50; */
+        }
+        input{
+         position: 20px;
+/*             z-index: -1;    */
+        }
+
+
+        #chart-container{
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
     <script src="ga-code.js"></script>
 
-    <br>
     <br>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -60,6 +94,7 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
+    <br>
 
     <div class="container">
         <div class="starter-template">
@@ -85,7 +120,13 @@
 
         <div>
             <br>
-            <div id="error-msg"></div>
+
+                <div id="error" >
+                <div class="alert alert-danger" role="alert">
+                <div id="error-msg"></div>
+                </div>
+            </div> 
+            <div id="results"></div>
             <div class="row">
                 <div class="col-lg-4">
                     <label for="date-range"></label>
@@ -133,22 +174,25 @@
                     <span class="input-group-btn">
 		<button class="btn btn-default" type="button" id="get-data">Pull Data!</button>
 		</span>
-                    <input type="text" class="form-control" id="campaign" placeholder="Enter Campaign Name Here">
+                    <input type="text" class="form-control" id="campaign" placeholder="Enter UTM Campaign Name Here">
                 </div>
                 <!-- /input-group -->
             </div>
             <!-- /.col-lg-6 -->
 
-        </div>
+        </div><br>
+        <button type="button" id="autofill"class="btn btn-default btn-lg">
+   auto fill
+</button>
 
-    </div>
-    <!-- /.container -->
+
+
     <br>
 
     <div id="chart-container"></div>
     </div>
     <!-- end container -->
-
+    
 </body>
 
 </html>

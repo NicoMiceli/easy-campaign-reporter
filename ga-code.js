@@ -1,10 +1,22 @@
+
+$(document).ready(function($) {
+	$("#autofill").click(function() {
+		$("#metric").val("ga:sessions");
+	    $("#dim").val("ga:date");
+	    $("#start").val("2016-12-01");
+	    $("#end").val("2016-12-31");
+	});
+	$("#error").hide();
+});
+
+
 gapi.analytics.ready(function() {
 
 	var gaID = "";
 	var options = {
 		ids: ""
 	};
-	var startDate, endDate, gaOutput
+	var startDate, endDate, gaOutput;
 
 	gapi.analytics.auth.authorize({
 		container: 'embed-api-auth-container',
@@ -22,6 +34,32 @@ gapi.analytics.ready(function() {
 	function grabValue(id) {
 		var value = $("#" + id).val();
 		return value
+	}	
+
+	function pullCampaignParam () { 
+		var campaign = $("#campaign").val();
+		var campaignName = '';
+		console.log('pullCampaignParam')
+		if (campaign.match('utm\_campaign\=')) {
+			var campaignSubStr = campaign.substring(campaign.indexOf('utm_campaign=')+13);
+			console.log(campaignSubStr)
+			if (campaignSubStr.match(/\#/)) {
+				console.log(campaignSubStr.split("#")[0])
+				//return campaignSubStr.split("#")[0];
+				campaignName = campaignSubStr.split("#")[0];
+			} else if (campaignSubStr.match(/\&/)) {
+				console.log(campaignSubStr.split("&")[0])
+				//return campaignSubStr.split("&")[0]
+				campaignName=campaignSubStr.split("&")[0]
+			};
+		} else if(campaign.match(/\.|\//)){
+			console.log("campaign value \n"+campaign)
+		} else {
+			console.log('campaign else')
+			//return campaign;
+			campaignName = campaign
+		}
+		return campaignName
 	}
 
 	/**
@@ -41,8 +79,9 @@ gapi.analytics.ready(function() {
 	//
 	$("#get-data").click(function() {
 		var campaign = $("#campaign").val();
-		console.log("campaign = " + campaign)
-		grabDates("start","end");
+		//console.log("campaign = " + campaign)
+		//grabDates("start","end");
+
 
 		var dataChart = new gapi.analytics.googleCharts.DataChart({
 			query: {
@@ -72,23 +111,40 @@ gapi.analytics.ready(function() {
 		})
 
 		if (campaign.length > 0) {
+			//pullCampaignParam()
+			console.log("campaign if fun" + pullCampaignParam())
 			dataTable.set({
 				query: {
-					filters: "ga:campaign==" + campaign
+					filters: "ga:campaign==" + pullCampaignParam()
 				}
 			})
 			dataChart.set({
 				query: {
-					filters: "ga:campaign==" + campaign
+					filters: "ga:campaign==" + pullCampaignParam()
 				}
 			})
-		}
+		};
 
-		console.log("button clicked")
+		//console.log("button clicked")
 		dataTable.on('success', function(response) {
 			console.log(response);
-		})
+			console.log(response.query.metrics[0])
+		});
+		dataTable.on('error', function(response){
+			console.log('error');
+			console.log(response.error.message)
+		});
+		dataChart.on('error', function(response){
+			console.log('error');
+			$("#error").show();
+			$('#error-msg').html(response.error.message)
+		});
+
 		dataTable.execute();
 		dataChart.execute();
+		$("#error").hide();
 	});
 });
+
+	
+
