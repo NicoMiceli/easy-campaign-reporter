@@ -1,11 +1,15 @@
+//Debug Mode
+var debugMode = true;
 
 $(document).ready(function($) {
-	$("#autofill").click(function() {
-		$("#metric").val("ga:sessions");
-	    $("#dim").val("ga:date");
-	    $("#start").val("2016-12-01");
-	    $("#end").val("2016-12-31");
-	});
+	if (debugMode) {
+		$("#autofill").click(function() {
+			$("#metric").val("ga:sessions");
+	    	$("#dim").val("ga:date");
+	    	$("#start").val("2016-12-01");
+	    	$("#end").val("2017-02-28");
+		});	
+	};
 	$("#error").hide();
 });
 
@@ -36,32 +40,6 @@ gapi.analytics.ready(function() {
 		return value
 	}	
 
-	function pullCampaignParam () { 
-		var campaign = $("#campaign").val();
-		var campaignName = '';
-		console.log('pullCampaignParam')
-		if (campaign.match('utm\_campaign\=')) {
-			var campaignSubStr = campaign.substring(campaign.indexOf('utm_campaign=')+13);
-			console.log(campaignSubStr)
-			if (campaignSubStr.match(/\#/)) {
-				console.log(campaignSubStr.split("#")[0])
-				//return campaignSubStr.split("#")[0];
-				campaignName = campaignSubStr.split("#")[0];
-			} else if (campaignSubStr.match(/\&/)) {
-				console.log(campaignSubStr.split("&")[0])
-				//return campaignSubStr.split("&")[0]
-				campaignName=campaignSubStr.split("&")[0]
-			};
-		} else if(campaign.match(/\.|\//)){
-			console.log("campaign value \n"+campaign)
-		} else {
-			console.log('campaign else')
-			//return campaign;
-			campaignName = campaign
-		}
-		return campaignName
-	}
-
 	/**
 	 * Create a new DataChart instance with the given query parameters
 	 * and Google chart options. It will be rendered inside an element
@@ -81,7 +59,6 @@ gapi.analytics.ready(function() {
 		var campaign = $("#campaign").val();
 		//console.log("campaign = " + campaign)
 		//grabDates("start","end");
-
 
 		var dataChart = new gapi.analytics.googleCharts.DataChart({
 			query: {
@@ -112,15 +89,15 @@ gapi.analytics.ready(function() {
 
 		if (campaign.length > 0) {
 			//pullCampaignParam()
-			console.log("campaign if fun" + pullCampaignParam())
+			
 			dataTable.set({
 				query: {
-					filters: "ga:campaign==" + pullCampaignParam()
+					filters: "ga:campaign==" + campaign
 				}
 			})
 			dataChart.set({
 				query: {
-					filters: "ga:campaign==" + pullCampaignParam()
+					filters: "ga:campaign==" + campaign
 				}
 			})
 		};
@@ -129,6 +106,16 @@ gapi.analytics.ready(function() {
 		dataTable.on('success', function(response) {
 			console.log(response);
 			console.log(response.query.metrics[0])
+			//console.log(JSON.stringify(response.totalsForAllResults))
+			for (var prop in response.totalsForAllResults) {
+				console.log(response.totalsForAllResults)
+				console.log('break')
+				break;
+			};
+			console.log(Object.keys(response.totalsForAllResults)[0])
+			console.log(Object.values(response.totalsForAllResults)[0])
+			$("#result-text").html("<h2>Results:</h2><p class='lead'>There were <b>"+Object.values(response.totalsForAllResults)[0]+"</b> "+Object.keys(response.totalsForAllResults)[0]+" between "+grabValue('start')+" and "+grabValue('end')+"</p>")
+
 		});
 		dataTable.on('error', function(response){
 			console.log('error');
@@ -145,6 +132,3 @@ gapi.analytics.ready(function() {
 		$("#error").hide();
 	});
 });
-
-	
-
